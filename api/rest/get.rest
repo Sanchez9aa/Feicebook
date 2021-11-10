@@ -1,0 +1,38 @@
+//Get an user
+GET http://localhost:8800/api/user/6166b5dcc54529899b95bb7d HTTP/1.1
+
+###
+//Get a post
+GET http://localhost:8800/api/posts/6168041c24e2899b5329acc6 HTTP/1.1
+
+###
+
+//Get timeline post
+
+GET http://localhost:8800/api/posts/timeline/all HTTP/1.1
+Content-Type: application/json
+
+{
+  "userId": "6167f9c6de104e02f725fddd"
+}
+
+###
+
+//GET FRIENDS
+
+GET http://localhost:8800/api/user/friends/61789450f24731bc2a8aab54 HTTP/1.1
+Content-Type: application/json
+
+###
+
+// GET CHAT 
+
+GET http://localhost:8800/api/chats/61789450f24731bc2a8aab54 HTTP/1.1
+Content-Type: application/json
+
+###
+
+GET http://localhost:8800/api/messages/61826bfff145a578031f72a7 HTTP/1.1
+Content-Type: application/json
+// Get Messages from conversations
+

@@ -1,0 +1,51 @@
+//Updating an User
+PUT http://localhost:8800/api/user/6166ad507877c9b99b080267 HTTP/1.1
+Content-Type: application/json
+
+{
+  "desc": "hey",
+  "userId": "6166ad507877c9b99b080267"
+}
+
+###
+
+//Following an user
+PUT http://localhost:8800/api/user/61789450f24731bc2a8aab54/follow HTTP/1.1
+Content-Type: application/json
+
+{
+  "userId": "6178945ef24731bc2a8aab56"
+}
+
+###
+
+//Unfollowing an user
+PUT http://localhost:8800/api/user/6178945ef24731bc2a8aab56/unfollow HTTP/1.1
+Content-Type: application/json
+
+{
+  "userId": "61789450f24731bc2a8aab54"
+}
+
+###
+
+//Updating a post
+PUT http://localhost:8800/api/posts/6167ff1f720e5df7abb7e9a1 HTTP/1.1
+Content-Type: application/json
+
+{
+  "userId":"6167f9c6de104e02f725fddd",
+  "desc":"Hey, its my second time updating a Post",
+  "img":"imageUpdated.png"
+}
+
+###
+
+//Like and dislike a post
+PUT http://localhost:8800/api/posts/6168041c24e2899b5329acc6/like HTTP/1.1
+Content-Type: application/json
+
+{
+  "userId":"6167f9c6de104e02f725fddd"
+}
+

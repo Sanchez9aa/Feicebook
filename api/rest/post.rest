@@ -1,0 +1,59 @@
+//Create an user
+POST http://localhost:8800/api/auth/register HTTP/1.1
+Content-Type: application/json
+
+{
+  "username": "Alejandro Ruiz",
+  "email": "alejandro@email.com",
+  "password": "test1234",
+  "city": "",
+  "from": ""
+}
+
+###
+
+//Login an user
+POST http://localhost:8800/api/auth/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "test@gmail.com",
+  "password": "test1234"
+}
+
+### 
+//Create a post
+POST http://localhost:8800/api/posts/ HTTP/1.1
+Content-Type: application/json
+
+{
+  "userId":"6178945ef24731bc2a8aab56",
+  "desc":"Post by Alejandro",
+  "img":"image.png"
+}
+
+###
+
+//Create a conversation
+
+POST http://localhost:8800/api/chats/ HTTP/1.1
+Content-Type: application/json
+
+{
+  "senderId":"6178945ef24731bc2a8aab56",
+  "receiverId":"61789450f24731bc2a8aab54"
+}
+
+###
+
+//Sending a message
+
+POST http://localhost:8800/api/messages/ HTTP/1.1
+Content-Type: application/json
+
+{
+  "conversationId":"61826bfff145a578031f72a7",
+  "sender":"6178945ef24731bc2a8aab56",
+  "text": "Hey, what do you want?"
+}
+

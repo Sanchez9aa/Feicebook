@@ -1,0 +1,18 @@
+//Delete an user
+DELETE http://localhost:8800/api/user/6166ad507877c9b99b080267
+Content-Type: application/json
+
+{
+  "userId": "6166ad507877c9b99b080267"
+}
+
+###
+
+//Delete a post
+
+DELETE http://localhost:8800/api/posts/6167ff1f720e5df7abb7e9a1
+Content-Type: application/json
+
+{
+  "userId": "6166b5dcc54529899b95bb7d"
+}
