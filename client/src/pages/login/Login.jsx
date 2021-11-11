@@ -32,7 +32,7 @@ function Login() {
             <input placeholder="Email" type="email" ref={email} className="loginInput" />
             <input placeholder="Password" type="password" minLength="6" ref={password} className="loginInput" />
             <button className="loginButton">
-              {isFetching ? <CircularProgress color="white" size="18px" /> : "Log in"}
+              {isFetching ? <CircularProgress size="18px" /> : "Log in"}
             </button>
             <span className="loginForgot">Forgot Password?</span>
             <button className="loginRegisterButton">Register</button>

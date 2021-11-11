@@ -1,5 +1,4 @@
 import './rightbar.css'
-import Online from '../online/online'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import {Link} from 'react-router-dom'
@@ -32,11 +31,11 @@ export default function Rightbar({user}) {
   const ProfileRightbar = () => {
 
     const [friends, setFriends] = useState([])
-    const [followed, setFollowed] = useState(false)
-    
-    useEffect(()=>{
-      setFollowed(currentUser.following.includes(user?.id))
-    }, [])
+    const [followed, setFollowed] = useState(currentUser.following.includes(user?.id))
+
+    console.log(user)
+    console.log(currentUser)
+    console.log(currentUser.following.includes(user?.id))
 
     useEffect(() => {
       const getFriends = async () => {

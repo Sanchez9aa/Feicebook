@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt')
 const User = require('../models/User')
 
 const router = express.Router()
+
 //Update User
 
 router.put("/:id", async(req, res) => {

@@ -8,7 +8,9 @@ const router = express.Router()
 router.post('/register', async (req,res) => {
   try{
   //Check if user exist
-
+  const user = await User.findOne({email:req.body.email})
+    console.log(user)
+    user && res.status(400).send("That user is already registered")
   //Generate password
   const salt = await bcrypt.genSalt(12)
   const hashedPassword = await bcrypt.hash(req.body.password, salt)
@@ -40,7 +42,7 @@ router.post('/login', async (req, res) =>{
     //Checking if passwords are the same 
     const validPassword = await bcrypt.compare(req.body.password, user.password)
     !validPassword && res.status(400).json('wrong password')
-
+    //Respond User
     res.status(200).json(user)
   }catch(err){
     res.status(500).json(err)

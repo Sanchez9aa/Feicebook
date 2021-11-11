@@ -7,6 +7,8 @@ import {Link} from 'react-router-dom'
 import {useSelector} from 'react-redux'
 export default function Post({post}) {
 
+  const {REACT_APP_PUBLIC_FOLDER} = process.env
+
   const [like, setLike] = useState(post.likes.length)
   const [isLiked, setIsLiked] = useState(false)
   const [user, setUser] = useState([])
@@ -34,13 +36,14 @@ export default function Post({post}) {
     setLike(isLiked ? like-1 : like+1)
     setIsLiked(!isLiked)
   }
+
   return (
     <div className="post">
       <div className="postWrapper">
         <div className="postTop">
           <div className="postTopLeft">
             <Link to={`profile/${user.username}`}>
-              <img className="postProfileImg" src={user.profilePicture || "http://localhost:3000/assets/perfil/noavatar.png"} alt="" />
+              <img className="postProfileImg" src={user.profilePicture ? `${REACT_APP_PUBLIC_FOLDER}perfil/${user.profilePicture}` : `${REACT_APP_PUBLIC_FOLDER}perfil/noavatar.png`} alt="" />
             </Link>  
               <span className="postUsername">{user.username}</span>                          
               <span className="postDate">{format(post.createAt)}</span>
@@ -51,7 +54,7 @@ export default function Post({post}) {
         </div>
         <div className="postCenter">
           <span className="postText">{post?.desc}</span>
-          <img className="postImg" src={post.img} alt="" />
+          <img className="postImg" src={`${REACT_APP_PUBLIC_FOLDER}posts/${post.img}`} alt="" />
         </div>
         <div className="postBottom">
           <div className="postBottomLeft">

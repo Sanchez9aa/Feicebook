@@ -5,12 +5,18 @@ import {useSelector} from 'react-redux'
 import axios from 'axios'
 
 export default function Share() {
+  //Getting state
   const auth = useSelector(state => state)
   const {user} = auth.auth
-  const PF = process.env.REACT_APP_PUBLIC_FOLDER
+  //Form input
   const desc = useRef()
+  //Making a label input
   const [file, setFile] = useState(null)
 
+  //Photos file
+  const {REACT_APP_PUBLIC_FOLDER} = process.env
+
+  //When Share button is clicked we async call to save a post on MONGODB
   const submitHandler = async (e) => {
     e.preventDefault()
     const newPost = {
@@ -19,15 +25,17 @@ export default function Share() {
     }
     try{
       await axios.post('/posts', newPost)
+      desc.current.value = ""
     }catch(err){
       console.log(err)
     }
   } 
+
   return (
     <div className="share">
       <div className="shareWrapper">
         <div className="shareTop">
-          <img className="shareProfileImg" src={ user.profilePicture ? PF+user.profilePicture : PF+"perfil/noavatar.png"} alt="" />
+          <img className="shareProfileImg" src={user.profilePicture ? `${REACT_APP_PUBLIC_FOLDER}perfil/${user.profilePicture}` : `${REACT_APP_PUBLIC_FOLDER}perfil/noavatar.png`} alt="" />
           <input 
             placeholder="What's in your mind?" 
             className="shareInput" 
@@ -36,7 +44,7 @@ export default function Share() {
         <hr className="shareHr" />
         <form className="shareBottom" onSubmit={submitHandler}>
           <div className="shareOptions">
-            <label htmlFor="file" className="shareOption">
+            <label htmlFor={file} className="shareOption">
               <PermMedia htmlColor="tomato" className="shareIcon" />
               <span className="shareOptionText">Photo Or Video</span>
               <input 
