@@ -8,7 +8,7 @@ import {useSelector} from 'react-redux'
 
 
 
-export default function Feed({username}) {
+const Feed = ({username}) => {
   const [posts, setPosts] = useState([])
   const auth = useSelector((state) => state)
 
@@ -42,3 +42,5 @@ export default function Feed({username}) {
     </div>
   )
 }
+
+export default Feed

@@ -57,6 +57,7 @@ router.get("/", async (req, res) => {
       ? await User.findById(userId) 
       : await User.findOne({username:username})
     const {password, updateAt, isAdmin, ...other} = user._doc
+    console.log(other)
     res.status(200).json(other)
   }catch(err){
     res.status(500).json(err)
@@ -93,7 +94,7 @@ router.put('/:id/follow', async (req, res) =>{
       const currentUser = await User.findById(req.body.userId)
       if(!user.followers.includes(req.body.userId)){
         await user.updateOne({$push:{followers:req.body.userId}})
-        await currentUser.updateOne({$push:{following:req.body.userId}})
+        await currentUser.updateOne({$push:{following:req.params.userId}})
         res.status(200).json('User has benn followed')
       }else{
         res.status(403).json('You already follow this user.')
@@ -115,7 +116,7 @@ router.put('/:id/unfollow', async (req, res) =>{
       const currentUser = await User.findById(req.body.userId)
       if(user.followers.includes(req.body.userId)){
         await user.updateOne({$pull:{followers:req.body.userId}})
-        await currentUser.updateOne({$pull:{following:req.body.userId}})
+        await currentUser.updateOne({$pull:{following:req.params.userId}})
         res.status(200).json('User has benn unfollowed')
       }else{
         res.status(403).json('You dont follow this user.')

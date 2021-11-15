@@ -14,6 +14,7 @@ export default function Post({post}) {
   const [user, setUser] = useState([])
   const auth = useSelector((state) => state)
   const currentUser = auth.auth.user
+  
   useEffect(()=>{
     const fetchUser = async () => {
       const res = await axios.get(`/user?userId=${post.userId}`)
