@@ -8,7 +8,7 @@ import {useSelector} from 'react-redux'
 import axios from 'axios'
 import {io} from "socket.io-client"
 
-export default function Messenger() {
+const Messenger = () => {
 
   const [conversations, setConversations ] = useState([])
   const [currentChat, setCurrentChat ] = useState(null)
@@ -32,9 +32,8 @@ export default function Messenger() {
         createdAt: Date.now(),
       })
     })
+    ScrollRef.current?.scrollIntoView({behavior: "smooth"})
   }, [messages])
-
-  console.log(gotMessage)
 
   useEffect(()=>{
     gotMessage && currentChat?.members.includes(gotMessage.sender) &&
@@ -46,9 +45,6 @@ export default function Messenger() {
     socket.current.on("getUsers", users=>{
       setOnlineUsers(currentUser.following.filter(x=>users.some(y=>y.userId === x)))
     })
-  },[currentUser])
-
-  useEffect(()=>{
     const getConversations = async () => {
       try{
         const res = await axios.get("/chats/"+currentUser._id)
@@ -58,7 +54,7 @@ export default function Messenger() {
       }      
     } 
     getConversations()
-  },[currentUser._id])
+  },[currentUser])
 
   useEffect(()=>{
     const getMessages = async () => {
@@ -80,7 +76,6 @@ export default function Messenger() {
       text: newMessage
     }
 
-    console.log(message)
     const receiverId = currentChat.members.find(member => member !== currentUser._id)
 
     socket.current.emit("sendMessage", {
@@ -96,11 +91,7 @@ export default function Messenger() {
       console.log(err)
     }
   }
-
-  useEffect(()=>{
-    ScrollRef.current?.scrollIntoView({behavior: "smooth"})
-  },[messages])
-
+  console.log(onlineUsers)
   return ( 
     <>
       <Topbar />
@@ -143,3 +134,5 @@ export default function Messenger() {
     </>
   )
 }
+
+export default Messenger

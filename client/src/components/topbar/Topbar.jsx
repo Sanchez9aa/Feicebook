@@ -34,7 +34,9 @@ const Topbar = () => {
               </span>
             </div>
             <div className="topbarIconItem">
-              <Chat />
+              <Link to={"/messenger"}>
+                <Chat />
+              </Link>
               <span className="topbarIconBadge">
                 2
               </span>

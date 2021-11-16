@@ -30,16 +30,16 @@ router.get("/:userID", async (req,res) => {
 
 //GET chats with 2 users id
 
-router.get("/find/:firstUserId/:secondUserId"), async (req, res) => {
-  try{
+router.get("/find/:firstUserId/:secondUserId", async (req, res) => {
+  try {
     const chat = await Conversation.findOne({
       members: { $all: [req.params.firstUserId, req.params.secondUserId]},
     })
     res.status(200).json(chat)
-  }catch(err){
+  } catch(err){
     res.status(500).json(err)
   }
-}
+})
 
 
 module.exports = router

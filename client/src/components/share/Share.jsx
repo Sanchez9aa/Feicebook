@@ -4,19 +4,15 @@ import {PermMedia, Label, Room, EmojiEmotions} from '@material-ui/icons'
 import {useSelector} from 'react-redux'
 import axios from 'axios'
 
-export default function Share() {
-  //Getting state
+const Share = () => {
+
   const auth = useSelector(state => state)
   const {user} = auth.auth
-  //Form input
   const desc = useRef()
-  //Making a label input
   const [file, setFile] = useState(null)
 
-  //Photos file
   const {REACT_APP_PUBLIC_FOLDER} = process.env
 
-  //When Share button is clicked we async call to save a post on MONGODB
   const submitHandler = async (e) => {
     e.preventDefault()
     const newPost = {
@@ -73,3 +69,5 @@ export default function Share() {
     </div>
   )
 }
+
+export default Share

@@ -3,8 +3,6 @@ import ProfileRigthbar from '../profileRigthbar/ProfileRigthbar'
 import HomeRigthbar from '../homeRigthbar/homeRigthbar'
 
 const Rigthbar = ({user}) =>  {
-
-  console.log(user)
   
   return (
     <div className="rightbar">

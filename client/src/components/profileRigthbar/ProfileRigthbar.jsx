@@ -12,12 +12,19 @@ const ProfileRigthbar = ({user}) => {
   const currentUser = auth.auth.user 
 
   const [friends, setFriends] = useState([])
-  const [followed, setFollowed] = useState(currentUser.following.includes(user?._id))
+  const [followed, setFollowed] = useState()
 
-  console.log(typeof(user._id))
-  console.log(currentUser)
-  console.log(currentUser.following.includes(user?.id))
-  console.log(currentUser.following)
+  useEffect(()=>{
+    const getFollowed = async () => {
+      try{
+        const currentuser = await axios.get("/user?userId="+currentUser._id)
+        setFollowed(currentuser.data.following.some((x) => x === user._id))
+      }catch(err){
+        console.log(err)
+      }
+    }
+    getFollowed()
+  }, [user._id, currentUser._id, followed])
 
   useEffect(() => {
     const getFriends = async () => {
@@ -29,11 +36,11 @@ const ProfileRigthbar = ({user}) => {
       }
     }  
     getFriends()
-  }, [])
+  }, [user?._id])
 
   const handleFollow = async () => {
     try{
-      if (followed){
+      if (!followed){
         await axios.put(`/user/${user._id}/follow`, {userId:currentUser._id})
       }else{
         await axios.put(`/user/${user._id}/unfollow`, {userId:currentUser._id})

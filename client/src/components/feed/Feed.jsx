@@ -5,16 +5,13 @@ import Post from '../post/Post'
 import axios from 'axios'
 import {useSelector} from 'react-redux'
 
-
-
-
 const Feed = ({username}) => {
+
   const [posts, setPosts] = useState([])
   const auth = useSelector((state) => state)
 
   const {user} = auth.auth
   
-
   useEffect(()=>{
     const fetchPosts = async () => {
       const res = username 
@@ -27,7 +24,6 @@ const Feed = ({username}) => {
     }
     fetchPosts()
   }, [username, user._id])
-
 
   return (
     <div className="feed">

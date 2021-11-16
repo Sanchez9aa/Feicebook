@@ -11,8 +11,13 @@ const addUser = (userId, socketId) => {
     users.push({userId, socketId})
 }
 
-const removeUser = (userId, socketId) => {
-  users.filter((user) => user.socketId !== socketId)
+const removeUser = (socketId) => {
+  console.log("socketId " + socketId)
+  console.log("users.socketId " + users.socketId)
+  console.log("users " + users)
+  console.log("users.filter " + users.filter((user) => user.socketId !== socketId))
+  return users.filter((user) => user.socketId !== socketId)
+  
 }
 
 const getUser = (userId) => {
@@ -23,13 +28,12 @@ io.on("connection", (socket) => {
   //user connect
   console.log("an user conencted")
   
-  //taking userid and socket id
+  //getting userid and socket id
   socket.on("addUser", userId=>{
     addUser(userId, socket.id)
     io.emit("getUsers", users)
   })
 
-  console.log(users)
   socket.on("sendMessage", ({senderId, receiverId, text}) => {
     const user = getUser(receiverId)
     console.log(senderId, text)
@@ -44,4 +48,7 @@ io.on("connection", (socket) => {
     removeUser(socket.id)
     io.emit("getUsers", users)
   })
+
+  console.log(users)
+
 })
