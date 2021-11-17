@@ -72,6 +72,11 @@
   position: relative;
 }
 
+.topbarIconItem a{
+  text-decoration: none;
+  color:white
+}
+
 .topbarIconBadge{
   width: 15px;
   height: 15px;

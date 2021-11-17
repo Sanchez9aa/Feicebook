@@ -11,19 +11,23 @@ const addUser = (userId, socketId) => {
     users.push({userId, socketId})
 }
 
-const removeUser = (userId, socketId) => {
-  users.filter((user) => user.socketId !== socketId)
+const removeUser = (userId) => {
+  const index = users.findIndex(x => x.userId === userId)
+  console.log(index)
+  if (index !== -1){
+   return users.splice(index, 1)
+  }
 }
 
 const getUser = (userId) => {
-  return users.find(user=> user.userId === userId)
+  users.find(user=> user.userId === userId)
 }
 
 io.on("connection", (socket) => {
   //user connect
   console.log("an user conencted")
   
-  //taking userid and socket id
+  //getting userid and socket id
   socket.on("addUser", userId=>{
     addUser(userId, socket.id)
     io.emit("getUsers", users)
@@ -39,9 +43,14 @@ io.on("connection", (socket) => {
   })
 
   //user disconnect
-  socket.on("disconnect", ()=>{
+  socket.on("setDesconexion", (userId)=>{
     console.log("an user have been disconnected")
-    removeUser(socket.id)
-    io.emit("getUsers", users)
+    console.log(users)
+    removeUser(userId)
+    /* io.emit("getUsers", users) */
+    console.log(users)
   })
+
+  console.log(users)
+
 })

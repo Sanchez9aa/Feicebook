@@ -1,15 +1,22 @@
 import "./message.css"
 import {format} from 'timeago.js'
 
-export default function Message({message, own}) {
+const Message = ({message, own, senderPP, receiver}) => {
+
   const {REACT_APP_PUBLIC_FOLDER} = process.env
   return (
-    <div className={own ? "message own" : "message"}>
+    <div className={own ? "message" : "message own"}>
       <div className="messageTop">
-        <img 
-          src={`${REACT_APP_PUBLIC_FOLDER}/perfil/1.jpg`} 
+        { own 
+        ? <img 
+          src={`${REACT_APP_PUBLIC_FOLDER}/perfil/${receiver}`} 
           alt="" 
           className="messageImg" />
+        : <img 
+        src={`${REACT_APP_PUBLIC_FOLDER}/perfil/${senderPP}`} 
+        alt="" 
+        className="messageImg" />
+          }
         <p className="messageText">{message.text}
         </p>
       </div>
@@ -19,3 +26,5 @@ export default function Message({message, own}) {
     </div>
   )
 }
+
+export default Message

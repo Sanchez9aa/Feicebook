@@ -8,7 +8,7 @@ import {useSelector} from 'react-redux'
 import axios from 'axios'
 import {io} from "socket.io-client"
 
-export default function Messenger() {
+const Messenger = () => {
 
   const [conversations, setConversations ] = useState([])
   const [currentChat, setCurrentChat ] = useState(null)
@@ -16,50 +16,67 @@ export default function Messenger() {
   const [newMessage, setNewMessage ] = useState("")
   const [gotMessage, setGotMessage ] = useState(null)
   const [onlineUsers, setOnlineUsers ] = useState([])
+  const [receiver, setReceiver ] = useState()
+  const [receiverPP, setReceiverPP ] = useState()
+
   const socket = useRef()
   const ScrollRef = useRef()
   
   const auth = useSelector(state => state)
   const currentUser = auth.auth.user
 
+  /* Handling socketio basic config + real time messaging */
   useEffect(()=>{
     socket.current = io("ws://localhost:8900")
     socket.current.on("getMessage", (data) => {
-      console.log(data)
       setGotMessage({
         sender: data.senderId,
         text: data.text,
         createdAt: Date.now(),
       })
     })
+    ScrollRef.current?.scrollIntoView({behavior: "smooth"})
   }, [messages])
-
-  console.log(gotMessage)
 
   useEffect(()=>{
     gotMessage && currentChat?.members.includes(gotMessage.sender) &&
     setMessages((prev)=>[...prev, gotMessage])
   },[gotMessage, currentChat])
 
+  /* Handling users online and conversations*/
   useEffect(()=>{
     socket.current.emit("addUser", currentUser._id)
     socket.current.on("getUsers", users=>{
       setOnlineUsers(currentUser.following.filter(x=>users.some(y=>y.userId === x)))
     })
-  },[currentUser])
-
-  useEffect(()=>{
     const getConversations = async () => {
       try{
         const res = await axios.get("/chats/"+currentUser._id)
+        const ids = res.data[0].members.map(x => x).find(x => x !== currentUser._id)
+        setReceiver(ids)
         setConversations(res.data)
       }catch(err){
         console.log(err)
       }      
     } 
     getConversations()
-  },[currentUser._id])
+  },[currentUser])
 
+  /* Getting receiver ProfilePicture */
+  useEffect(()=>{
+    const getUser = async () => {
+      try{
+        const res = await axios("/user?userId="+receiver)
+        console.log(res.data)
+        setReceiverPP(res.data.profilePicture)
+      }catch(err){
+        console.log(err)
+      }
+    }
+    getUser()
+  },[receiver])
+
+  /* Getting all messages from a chat */
   useEffect(()=>{
     const getMessages = async () => {
       try{
@@ -72,6 +89,7 @@ export default function Messenger() {
     getMessages()
   },[currentChat])
 
+  /* Handling sending messages */
   const handleSubmit = async (e) => {
     e.preventDefault()
     const message = {
@@ -95,11 +113,7 @@ export default function Messenger() {
     }catch(err){
       console.log(err)
     }
-  }
-
-  useEffect(()=>{
-    ScrollRef.current?.scrollIntoView({behavior: "smooth"})
-  },[messages])
+  }   
 
   return ( 
     <>
@@ -124,7 +138,7 @@ export default function Messenger() {
             <div className="chatBoxTop">
               {messages.map(x => (
                 <div ref={ScrollRef}>
-                  <Message message={x} own={x.sender === currentUser?._id}/>
+                  <Message senderPP={currentUser.profilePicture} receiver={receiverPP} message={x} own={x.sender === currentUser?._id}/>
                 </div>
               ))}
             </div>
@@ -143,3 +157,5 @@ export default function Messenger() {
     </>
   )
 }
+
+export default Messenger

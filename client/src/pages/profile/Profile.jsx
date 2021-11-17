@@ -3,13 +3,13 @@ import './profile.css'
 import Topbar from "../../components/topbar/Topbar"
 import Sidebar from "../../components/sidebar/Sidebar"
 import Feed from "../../components/feed/Feed"
-import Rightbar from "../../components/rightbar/Rightbar"
+import Rigthbar from "../../components/rigthbar/Rigthbar"
 import axios from 'axios'
 import {useParams} from 'react-router'
 
-function Profile() {
+const Profile = () => {
 
-  const [user, setUser] = useState([])
+  const [user, setUser] = useState({})
   const username = useParams().username
   const {REACT_APP_PUBLIC_FOLDER} = process.env
 
@@ -20,7 +20,6 @@ function Profile() {
     }
     fetchUser() 
   },[username])
-
 
   return (
     <>
@@ -40,7 +39,7 @@ function Profile() {
         </div>
         <div className="profileRightBottom">
           <Feed username={username}/>
-          <Rightbar user={user}/>
+          <Rigthbar user={user}/>
         </div>
       </div>
     </div>

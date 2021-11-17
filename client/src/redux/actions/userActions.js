@@ -14,7 +14,7 @@ export const LoginFailured = (error) => ({
   payload: error
 })
 
-export const LogoutStart = () => ({
+export const Logout = () => ({
   type:ActionTypes.LOGOUT,
   payload: null
 });
