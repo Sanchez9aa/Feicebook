@@ -16,16 +16,19 @@ const Messenger = () => {
   const [newMessage, setNewMessage ] = useState("")
   const [gotMessage, setGotMessage ] = useState(null)
   const [onlineUsers, setOnlineUsers ] = useState([])
+  const [receiver, setReceiver ] = useState()
+  const [receiverPP, setReceiverPP ] = useState()
+
   const socket = useRef()
   const ScrollRef = useRef()
   
   const auth = useSelector(state => state)
   const currentUser = auth.auth.user
 
+  /* Handling socketio basic config + real time messaging */
   useEffect(()=>{
     socket.current = io("ws://localhost:8900")
     socket.current.on("getMessage", (data) => {
-      console.log(data)
       setGotMessage({
         sender: data.senderId,
         text: data.text,
@@ -40,6 +43,7 @@ const Messenger = () => {
     setMessages((prev)=>[...prev, gotMessage])
   },[gotMessage, currentChat])
 
+  /* Handling users online and conversations*/
   useEffect(()=>{
     socket.current.emit("addUser", currentUser._id)
     socket.current.on("getUsers", users=>{
@@ -48,6 +52,8 @@ const Messenger = () => {
     const getConversations = async () => {
       try{
         const res = await axios.get("/chats/"+currentUser._id)
+        const ids = res.data[0].members.map(x => x).find(x => x !== currentUser._id)
+        setReceiver(ids)
         setConversations(res.data)
       }catch(err){
         console.log(err)
@@ -56,6 +62,21 @@ const Messenger = () => {
     getConversations()
   },[currentUser])
 
+  /* Getting receiver ProfilePicture */
+  useEffect(()=>{
+    const getUser = async () => {
+      try{
+        const res = await axios("/user?userId="+receiver)
+        console.log(res.data)
+        setReceiverPP(res.data.profilePicture)
+      }catch(err){
+        console.log(err)
+      }
+    }
+    getUser()
+  },[receiver])
+
+  /* Getting all messages from a chat */
   useEffect(()=>{
     const getMessages = async () => {
       try{
@@ -68,6 +89,7 @@ const Messenger = () => {
     getMessages()
   },[currentChat])
 
+  /* Handling sending messages */
   const handleSubmit = async (e) => {
     e.preventDefault()
     const message = {
@@ -90,8 +112,8 @@ const Messenger = () => {
     }catch(err){
       console.log(err)
     }
-  }
-  console.log(onlineUsers)
+  }   
+
   return ( 
     <>
       <Topbar />
@@ -115,7 +137,7 @@ const Messenger = () => {
             <div className="chatBoxTop">
               {messages.map(x => (
                 <div ref={ScrollRef}>
-                  <Message message={x} own={x.sender === currentUser?._id}/>
+                  <Message senderPP={currentUser.profilePicture} receiver={receiverPP} message={x} own={x.sender === currentUser?._id}/>
                 </div>
               ))}
             </div>

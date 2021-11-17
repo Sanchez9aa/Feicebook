@@ -17,7 +17,7 @@ const Conversation = ({conversation, currentUser}) => {
       }
     }
     getUser()
-  },[currentUser, conversation])
+  },[currentUser])
 
   const {REACT_APP_PUBLIC_FOLDER} = process.env
 

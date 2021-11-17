@@ -1,12 +1,30 @@
 import "./topbar.css";
 import { Search, Person, Chat, Notifications } from "@material-ui/icons";
 import { Link } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { Logout } from "../../redux/actions/userActions";
+import { useRef, useEffect } from "react";
+import {io} from "socket.io-client"
+
 
 const Topbar = () => {
+
+  useEffect(()=>{
+    socket.current = io("ws://localhost:8900")
+  },[])
+
+  const socket = useRef()
   const auth = useSelector((state) => state)
 
   const {user} = auth.auth
+
+  const dispatch = useDispatch()
+
+  const handleLogout = () => {
+    /* localStorage.removeItem("loginIn") */
+    dispatch(Logout())
+    socket.current.emit("setDesconexion", user._id)
+  }
 
   return (
     <div className= "topbarContainer">
@@ -41,7 +59,7 @@ const Topbar = () => {
                 2
               </span>
             </div>
-            <div className="topbarIconItem">
+            <div className="topbarIconItem" onClick={handleLogout}>
               <Notifications />
               <span className="topbarIconBadge">
                 3

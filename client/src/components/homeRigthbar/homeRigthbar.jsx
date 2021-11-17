@@ -13,9 +13,6 @@ const HomeRigthbar = () =>{
         </span>
       </div>
       <img className="rightbarAd" src={`${REACT_APP_PUBLIC_FOLDER}/ad.jpg`} alt="" />
-      <h4 className="rightbarTitle">Online Friends</h4>
-      <ul className="rightbarFriendList">
-      </ul>
   </>
   )
 }

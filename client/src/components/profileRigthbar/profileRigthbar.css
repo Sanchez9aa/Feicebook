@@ -1,41 +1,42 @@
-.rightbarInfo{
+.rigthbarInfo{
   margin-bottom: 30px;
 }
 
-.rightbarInfoItem{
+.rigthbarInfoItem{
   margin-bottom: 10px;
 }
 
-.rightbarInfoKey{
+.rigthbarInfoKey{
   font-weight: 500;
-  margin-right: 15px;
+  margin-rigth: 15px;
   color:#555;
 }
 
-.rightbarInfoValue{
+.rigthbarInfoValue{
   font-weight: 300;
 }
 
-.rightbarFollowings{
+.rigthbarFollowings{
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: ;
 }
 
-.rightbarFollowing{
+.rigthbarFollowing{
   display: flex;
   flex-direction: column;
   cursor: pointer;
+  margin: 0 10px;
 }
 
-.rightbarFollowingImg{
+.rigthbarFollowingImg{
   width: 100px; 
   height: 100px;
   object-fit: cover;
   border-radius: 5px;
 }
 
-.rightbarFollowButton{
+.rigthbarFollowButton{
   margin-top: 30px;
   margin-bottom: 10px;
   border: none;
@@ -50,12 +51,12 @@
   cursor: pointer;
 }
 
-.rightbarFollowingName{
+.rigthbarFollowingName{
   text-align: center;
   margin-top: 5px;
   color: black
 }
 
-.rightbarFollowings a{
+.rigthbarFollowings a{
   text-decoration: none;
 }

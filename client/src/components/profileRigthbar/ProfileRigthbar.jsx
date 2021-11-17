@@ -54,27 +54,27 @@ const ProfileRigthbar = ({user}) => {
   return (
     <>
     {user.username !== currentUser.username && (
-      <button className="rightbarFollowButton" onClick={handleFollow}>
+      <button className="rigthbarFollowButton" onClick={handleFollow}>
         {followed ? "Unfollow" : "Follow"}
         {followed ? <Remove/> : <Add/>}
       </button>
     )}
-      <h4 className="rightbarTitle">User Information</h4>
-      <div className="rightbarInfo">
-        <div className="rightbarInfoItem">
-          <span className="rightbarInfoKey">City:</span>
-          <span className="rightbarInfoValue">{user.city}</span>
+      <h4 className="rigthbarTitle">User Information</h4>
+      <div className="rigthbarInfo">
+        <div className="rigthbarInfoItem">
+          <span className="rigthbarInfoKey">City:</span>
+          <span className="rigthbarInfoValue">{user.city}</span>
         </div>
-        <div className="rightbarInfoItem">
-          <span className="rightbarInfoKey">From:</span>
-          <span className="rightbarInfoValue">{user.from}</span>
+        <div className="rigthbarInfoItem">
+          <span className="rigthbarInfoKey">From:</span>
+          <span className="rigthbarInfoValue">{user.from}</span>
         </div>
       </div>
-      <h4 className="rightbarTitle">User Friends</h4>
-      <div className="rightbarFollowings">
+      <h4 className="rigthbarTitle">User Friends</h4>
+      <div className="rigthbarFollowings">
         {friends.map((friend)=>(
           <Link to ={`/profile/${friend.username}`}>
-            <div className="rightbarFollowing">
+            <div className="rigthbarFollowing">
               <img 
                 src={ 
                   friend.profilePicture 
@@ -82,8 +82,8 @@ const ProfileRigthbar = ({user}) => {
                     : `${REACT_APP_PUBLIC_FOLDER}/perfil/noavatar.png`
                   } 
                 alt="Imagen de perfil de amigos" 
-                className="rightbarFollowingImg" />
-              <span className="rightbarFollowingName">{friend.username}</span>
+                className="rigthbarFollowingImg" />
+              <span className="rigthbarFollowingName">{friend.username}</span>
             </div>  
           </Link>
         ))}
