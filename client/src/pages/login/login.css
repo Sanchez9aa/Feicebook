@@ -82,3 +82,7 @@
   font-weight: 500;
   cursor: pointer; 
 }
+
+.loginResponse{
+  margin: 10px auto;
+}

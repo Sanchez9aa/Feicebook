@@ -1,10 +1,12 @@
 import './register.css'
 import { Link } from 'react-router-dom'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import axios from 'axios'
 import { useHistory } from 'react-router'
 
 function Register() {
+
+  const [registerResponse, setRegisterResponse] = useState()
 
   const username = useRef()
   const email = useRef()
@@ -27,6 +29,8 @@ function Register() {
         history.push("/login")
       }catch(err){
         console.log(err)
+        setRegisterResponse(err.response.data.message)
+        console.log(err)
       }
       
     }
@@ -45,6 +49,9 @@ function Register() {
             <input placeholder="Password" ref={password} type="password" minLength="8" className="loginInput" />
             <input placeholder="Password Again" ref={passwordAgain} type="password" minLength="8" className="loginInput" />
             <button className="loginButton" type="submit"> Sign Up</button>
+            {
+              !registerResponse ? null : <div className="registerResponse">{registerResponse}</div>
+            }
             <Link to="login"> 
               <button className="loginRegisterButton" type="button">Log in</button>
             </Link>

@@ -13,7 +13,7 @@ export const userReducer = (state = initialState, {type, payload}) => {
     case ActionTypes.LOGIN_SUCCESS:
       return {...state, isFetching: false, user:payload}
     case ActionTypes.LOGIN_FAILURED:
-      return {...state, isFetching: false, error:payload}
+      return {...state, isFetching: false, error:false}
     case ActionTypes.LOGOUT:
       return {...state, user:payload}
     default:

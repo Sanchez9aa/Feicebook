@@ -10,8 +10,9 @@ router.post('/register', async (req,res) => {
   //Check if user exist
   const user = await User.findOne({email:req.body.email})
     console.log(user)
-    user && res.status(400).send("That user is already registered")
-  //Generate password
+    if(user) return res.status(400).json({message:"That email is already registered", succes:false})
+  
+    //Generate password
   const salt = await bcrypt.genSalt(12)
   const hashedPassword = await bcrypt.hash(req.body.password, salt)
 
@@ -26,7 +27,7 @@ router.post('/register', async (req,res) => {
   await newUser.save()
 
   //Respond User
-  res.send("Created").status(201)
+  res.send({message:"Created", success: true}).status(201)
   }catch(err){
     res.status(500).json(err)
   }
@@ -36,15 +37,18 @@ router.post('/login', async (req, res) =>{
   try{
     //Check if user exist
     const user = await User.findOne({email:req.body.email})
-    console.log(user)
-    !user && res.status(404).send('User not found')
-
+    if (!user) return res.status(404).json({message: "Email not founded", success:false})
+    
     //Checking if passwords are the same 
     const validPassword = await bcrypt.compare(req.body.password, user.password)
-    !validPassword && res.status(400).json('wrong password')
+    console.log('hola 1')
+    if (!validPassword) return res.status(400).json({message: "Wrong Password", success:false})
+    console.log('hola 2')
+
     //Respond User
-    res.status(200).json(user)
+    res.status(200).json({user, succes:true})
   }catch(err){
+    console.log('hola error')
     res.status(500).json(err)
   }
 })

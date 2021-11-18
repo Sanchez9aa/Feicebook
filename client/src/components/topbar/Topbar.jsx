@@ -21,7 +21,7 @@ const Topbar = () => {
   const dispatch = useDispatch()
 
   const handleLogout = () => {
-    /* localStorage.removeItem("loginIn") */
+    localStorage.removeItem("loginIn")
     dispatch(Logout())
     socket.current.emit("setDesconexion", user._id)
   }

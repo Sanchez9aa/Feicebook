@@ -1,12 +1,14 @@
-import {useRef} from 'react'
+import {useRef, useState} from 'react'
 import './login.css'
 import {loginCall} from '../../apiCalls'
 import { useSelector, useDispatch } from 'react-redux'
 import {CircularProgress} from "@material-ui/core"
+import { Link } from 'react-router-dom'
 
 
-function Login() {
+const Login = () => {
 
+  const [login, setLogin] = useState()
   const email = useRef()
   const password = useRef()
 
@@ -17,7 +19,7 @@ function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    loginCall({email: email.current.value, password: password.current.value}, dispatch)
+    loginCall({email: email.current.value, password: password.current.value}, dispatch, setLogin)
   } 
 
   return (
@@ -32,10 +34,17 @@ function Login() {
             <input placeholder="Email" type="email" ref={email} className="loginInput" />
             <input placeholder="Password" type="password" minLength="6" ref={password} className="loginInput" />
             <button className="loginButton">
-              {isFetching ? <CircularProgress size="18px" /> : "Log in"}
+              {isFetching ? <CircularProgress primary="white"size="18px" /> : "Log in"}
             </button>
+            {
+              !login
+              ? null
+              : <div className="loginResponse">{login}</div>
+            }
             <span className="loginForgot">Forgot Password?</span>
-            <button className="loginRegisterButton">Register</button>
+            <Link to={"/register"}>
+              <button className="loginRegisterButton">Register</button>
+            </Link>
           </div>
         </div>
       </div>
