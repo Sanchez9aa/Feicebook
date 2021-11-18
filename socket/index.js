@@ -20,23 +20,19 @@ const removeUser = (userId) => {
 }
 
 const getUser = (userId) => {
-  users.find(user => user.userId === userId)
+  return users.find(user => user.userId === userId)
 }
 
+//user connect
 io.on("connection", (socket) => {
-  //user connect
-  console.log("an has been conencted")
-
   //getting userid and socket id
   socket.on("addUser", userId => {
     addUser(userId, socket.id)
     io.emit("getUsers", users)
   })
 
-  console.log(users)
   socket.on("sendMessage", ({ senderId, receiverId, text }) => {
     const user = getUser(receiverId)
-    console.log(senderId, text)
     io.to(user.socketId).emit("getMessage", {
       senderId, text,
     })
