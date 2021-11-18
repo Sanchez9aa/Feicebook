@@ -1,13 +1,19 @@
+
 .sidebar{
   flex: 3;
   height: calc(100vh- 50px);
   overflow-y:scroll;
   position:sticky;
-  top: 50px
+  top: 50px;
+  overflow-y: scroll;
+  scrollbar-color: gray;
+  scrollbar-width: thin;
 }
+
 
 ::-webkit-scrollbar{
   width: 5px;
+  
 }
 ::-webkit-scrollbar-track{
   background-color: #f1f1f1;

@@ -4,3 +4,8 @@
   font-family: 'Roboto', sans-serif;
   box-sizing: border-box;
 }
+html{
+  overflow-y: scroll;
+  scrollbar-color: gray;
+  scrollbar-width: thin;
+}
