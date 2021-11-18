@@ -14,7 +14,7 @@ const app = express();
 
 dotenv.config()
 
-mongoose.connect(process.env.MONGO_URL, () =>{
+mongoose.connect(process.env.MONGO_URL, () => {
   console.log('Database Conexión Established')
 });
 
@@ -33,6 +33,6 @@ app.use('/api/messages', messageRoute)
 PORT = process.env.PORT
 
 
-app.listen(PORT, () =>{
+app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`)
 })

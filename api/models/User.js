@@ -1,58 +1,58 @@
 const mongoose = require('mongoose')
 
 const UserSchema = new mongoose.Schema({
-  username:{
-    type:String,
+  username: {
+    type: String,
     require: true,
-    min:3,
-    max:20,
+    min: 3,
+    max: 20,
     unique: true
   },
-  email:{
-    type:String,
+  email: {
+    type: String,
     required: true,
     max: 50,
-    unique:true
+    unique: true
   },
-  password:{
-    type:String,
-    required:true,
-    min:8
+  password: {
+    type: String,
+    required: true,
+    min: 8
   },
-  profilePicture:{
-    type:String,
-    default:""
+  profilePicture: {
+    type: String,
+    default: ""
   },
-  coverPicture:{
-    type:String,
-    default:""
+  coverPicture: {
+    type: String,
+    default: ""
   },
-  followers:{
-    type:Array,
-    default:[]
+  followers: {
+    type: Array,
+    default: []
   },
-  following:{
-    type:Array,
-    default:[]
+  following: {
+    type: Array,
+    default: []
   },
-  isAdmin:{
-    type:Boolean,
-    default:false
+  isAdmin: {
+    type: Boolean,
+    default: false
   },
-  desc:{
-    type:String,
-    max:50
+  desc: {
+    type: String,
+    max: 50
   },
-  city:{
-    type:String,
-    max:50
+  city: {
+    type: String,
+    max: 50
   },
-  from:{
-    type:String,
-    max:50
+  from: {
+    type: String,
+    max: 50
   }
 },
-{timestamps: true}
+  { timestamps: true }
 )
 
 module.exports = mongoose.model("User", UserSchema)

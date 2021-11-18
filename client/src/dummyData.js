@@ -1,31 +1,31 @@
 export const Users = [
   {
-    id:1,
+    id: 1,
     profilePicture: "http://localhost:3000/assets/perfil/1.jpg",
     username: "Maria Victoria",
   },
   {
-    id:2,
+    id: 2,
     profilePicture: "http://localhost:3000/assets/perfil/2.jpg",
     username: "Alejandro Ruiz",
   },
   {
-    id:3,
+    id: 3,
     profilePicture: "http://localhost:3000/assets/perfil/3.jpg",
     username: "Elena María",
   },
   {
-    id:4,
+    id: 4,
     profilePicture: "http://localhost:3000/assets/perfil/4.jpg",
     username: "Mazorcas Delgado",
   },
   {
-    id:5,
+    id: 5,
     profilePicture: "http://localhost:3000/assets/perfil/5.jpg",
     username: "Jesús Sánchez",
   },
   {
-    id:6,
+    id: 6,
     profilePicture: "http://localhost:3000/assets/perfil/6.jpg",
     username: "María Andrea",
   }

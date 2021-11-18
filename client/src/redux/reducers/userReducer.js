@@ -6,16 +6,16 @@ const initialState = {
   error: false
 }
 
-export const userReducer = (state = initialState, {type, payload}) => {
+export const userReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case ActionTypes.LOGIN_START:
-      return {...state, isFetching:true}
+      return { ...state, isFetching: true }
     case ActionTypes.LOGIN_SUCCESS:
-      return {...state, isFetching: false, user:payload}
+      return { ...state, isFetching: false, user: payload }
     case ActionTypes.LOGIN_FAILURED:
-      return {...state, isFetching: false, error:false}
+      return { ...state, isFetching: false, error: false }
     case ActionTypes.LOGOUT:
-      return {...state, user:payload}
+      return { ...state, user: payload }
     default:
       return state;
   }

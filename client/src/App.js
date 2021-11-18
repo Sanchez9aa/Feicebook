@@ -10,42 +10,42 @@ import {
   Route,
   Redirect
 } from "react-router-dom";
-import {useSelector} from 'react-redux'
+import { useSelector } from 'react-redux'
 
 function App() {
 
   const auth = useSelector((state) => state)
 
-  const {user} = auth.auth
+  const { user } = auth.auth
 
   return (
     <Router>
       <Switch>
         <Route exact path="/">
-          {user 
-            ? <Home/> 
-            : <Register/>}  
+          {user
+            ? <Home />
+            : <Register />}
         </Route>
         <Route path="/login">
-          { user 
-            ? <Redirect to="/" /> 
-            : <Login /> }  
-        </Route> 
+          {user
+            ? <Redirect to="/" />
+            : <Login />}
+        </Route>
         <Route path="/register">
-          { user 
+          {user
             ? <Redirect to="/" />
-            : <Register/>
+            : <Register />
           }
-        </Route> 
+        </Route>
         <Route path="/messenger">
-          {!user 
+          {!user
             ? <Redirect to="/" />
-            : <Messenger /> 
+            : <Messenger />
           }
         </Route>
         <Route path="/profile/:username">
-          <Profile/>  
-        </Route>   
+          <Profile />
+        </Route>
       </Switch>
     </Router>
   );

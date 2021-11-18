@@ -1,5 +1,5 @@
 const io = require("socket.io")(8900, {
-  cors:{
+  cors: {
     origin: "http://localhost:3000",
   },
 })
@@ -7,34 +7,34 @@ const io = require("socket.io")(8900, {
 let users = [];
 
 const addUser = (userId, socketId) => {
-  !users.some(user=>user.userId === userId) && 
-    users.push({userId, socketId})
+  !users.some(user => user.userId === userId) &&
+    users.push({ userId, socketId })
 }
 
 const removeUser = (userId) => {
   const index = users.findIndex(x => x.userId === userId)
   console.log(index)
-  if (index !== -1){
-   return users.splice(index, 1)
+  if (index !== -1) {
+    return users.splice(index, 1)
   }
 }
 
 const getUser = (userId) => {
-  users.find(user=> user.userId === userId)
+  users.find(user => user.userId === userId)
 }
 
 io.on("connection", (socket) => {
   //user connect
-  console.log("an user conencted")
-  
+  console.log("an has been conencted")
+
   //getting userid and socket id
-  socket.on("addUser", userId=>{
+  socket.on("addUser", userId => {
     addUser(userId, socket.id)
     io.emit("getUsers", users)
   })
 
   console.log(users)
-  socket.on("sendMessage", ({senderId, receiverId, text}) => {
+  socket.on("sendMessage", ({ senderId, receiverId, text }) => {
     const user = getUser(receiverId)
     console.log(senderId, text)
     io.to(user.socketId).emit("getMessage", {
@@ -43,14 +43,10 @@ io.on("connection", (socket) => {
   })
 
   //user disconnect
-  socket.on("setDesconexion", (userId)=>{
-    console.log("an user have been disconnected")
-    console.log(users)
+  socket.on("setDesconexion", (userId) => {
+    console.log("an user has been disconnected")
     removeUser(userId)
-    /* io.emit("getUsers", users) */
-    console.log(users)
   })
 
-  console.log(users)
 
 })
